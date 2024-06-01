@@ -1,0 +1,31 @@
+---
+title: "Competition"
+author: "Joshua Misiura"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE}
+#Bring in Libraries
+library(readr)
+library(readxl)
+library(tidyverse)
+library(corrplot)
+```
+
+
+```{r}
+#load data
+training <- read.csv("competition-data.csv") 
+test_preds <- read.csv("competition-test-x-values.csv") 
+```
+
+```{r}
+#cleaning and pred selection
+
+```
+
