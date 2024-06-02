@@ -26,6 +26,21 @@ test_preds <- read.csv("competition-test-x-values.csv")
 
 ```{r}
 #cleaning and pred selection
+zero_check <- training %>% summarise(across(everything(), ~ sum(. == 0)))
+#Predictors which have over 1,000 0's are being automatically removed. We can't assess the signifigance of individual columns, so this is the best route to retain predictors which have unique values
+training <- training %>% select(X2:X10, X17:outcome, - X8)
+```
+
+```{r}
+## Looking to remove highly correlated predictors.
+
+correlation_matrix <- cor(training)
 
 ```
+```{r}
+## Removing X4, X5, X6, X17 
+training <- training %>% select(- (X4:X6),- X17)
+pairs(training)
+```
+
 
