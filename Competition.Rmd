@@ -14,6 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(readr)
 library(readxl)
 library(tidyverse)
+library(caret)
 library(corrplot)
 ```
 
@@ -42,5 +43,37 @@ correlation_matrix <- cor(training)
 training <- training %>% select(- (X4:X6),- X17)
 pairs(training)
 ```
+```{r}
+x <- training %>% select(-outcome)
+y <- training$outcome
+```
 
+
+```{r}
+#KNN
+ctrl <- trainControl(method = "cv", number = 10)
+knnFit1 <- train(
+  x = x,
+  y = y,
+  preProcess = c("center", "scale"),
+  method = "knn",
+  trControl = ctrl,
+  tuneLength = 15)
+## Linear
+ctrl = trainControl(method="cv", number = 10)
+lmFit <- train( x = x,
+                y = (y),
+                preProcess = c("center", "scale"),
+                method="lm", 
+                trControl=ctrl
+          )
+ctrl = trainControl(method="cv", number = 10)
+rfFit <- train( x = x,
+                y = y,
+                preProcess = c("center", "scale"),
+                method="rf", 
+                trControl=ctrl
+          )
+
+```
 
