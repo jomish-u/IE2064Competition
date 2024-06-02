@@ -35,12 +35,12 @@ training <- training %>% select(X2:X10, X17:outcome, - X8)
 ```{r}
 ## Looking to remove highly correlated predictors.
 
-correlation_matrix <- cor(training)
 
 ```
 ```{r}
 ## Removing X4, X5, X6, X17 
 training <- training %>% select(- (X4:X6),- X17)
+correlation_matrix <- cor(training)
 pairs(training)
 ```
 ```{r}
@@ -59,21 +59,9 @@ knnFit1 <- train(
   method = "knn",
   trControl = ctrl,
   tuneLength = 15)
-## Linear
+## Linear DELETED, NOT NECESSARY WITH HIGH RMSE
 ctrl = trainControl(method="cv", number = 10)
-lmFit <- train( x = x,
-                y = (y),
-                preProcess = c("center", "scale"),
-                method="lm", 
-                trControl=ctrl
-          )
-ctrl = trainControl(method="cv", number = 10)
-rfFit <- train( x = x,
-                y = y,
-                preProcess = c("center", "scale"),
-                method="rf", 
-                trControl=ctrl
-          )
-
 ```
+
+
 
