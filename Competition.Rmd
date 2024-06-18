@@ -18,6 +18,7 @@ library(caret)
 library(corrplot)
 ```
 
+Note for below: removing the check for 0s and highly correlated predictors reduces model effectiveness for training set. Approximate difference is .16 (RMSE for no predictor removal was 2.86 vs 2.71 for the removal of predictors)
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #load data
@@ -36,27 +37,13 @@ training <- training %>% select(X2:X10, X17:outcome, - X8)
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 ## Removing X4, X5, X6, X17 for highly correlated, X7 for low var
 training <- training %>% select(- (X4:X6),- X17)
-correlation_matrix <- cor(training)
-pairs(training)
+##correlation_matrix <- cor(training)
+##pairs(training)
 ```
 ```{r}
 x <- training %>% select(-outcome)
 y <- training$outcome
 ```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-#KNN NO LONGER NEEDED, NOT SELECTED IN END
-ctrl <- trainControl(method = "cv", number = 10)
-knnFit1 <- train(
-  x = x,
-  y = y,
-  preProcess = c("center", "scale","BoxCox"),
-  method = "knn",
-  trControl = ctrl,
-  tuneLength = 15)
-```
-
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
